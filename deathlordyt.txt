@@ -1,0 +1,190 @@
+
+
+local Players = game:GetService("Players")
+local Lighting = game:GetService("Lighting")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "DeadRailsHub"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = PlayerGui
+
+local MainFrame = Instance.new("Frame")
+MainFrame.Size = UDim2.new(0, 400, 0, 400)
+MainFrame.Position = UDim2.new(0.5, -200, 0.5, -200)
+MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+MainFrame.BorderSizePixel = 0
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.Parent = ScreenGui
+
+local UICorner = Instance.new("UICorner", MainFrame)
+UICorner.CornerRadius = UDim.new(0, 10)
+
+local Header = Instance.new("Frame")
+Header.Size = UDim2.new(1, 0, 0, 40)
+Header.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+Header.BorderSizePixel = 0
+Header.Parent = MainFrame
+
+local Title = Instance.new("TextLabel")
+Title.Text = "Dead Rails TP Hub"
+Title.Size = UDim2.new(1, -80, 1, 0)
+Title.Position = UDim2.new(0, 10, 0, 0)
+Title.BackgroundTransparency = 1
+Title.TextColor3 = Color3.new(1, 1, 1)
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 20
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.Parent = Header
+
+local MinimizeButton = Instance.new("TextButton")
+MinimizeButton.Text = "_"
+MinimizeButton.Size = UDim2.new(0, 40, 1, 0)
+MinimizeButton.Position = UDim2.new(1, -80, 0, 0)
+MinimizeButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+MinimizeButton.TextColor3 = Color3.new(1, 1, 1)
+MinimizeButton.Font = Enum.Font.GothamBold
+MinimizeButton.TextSize = 20
+MinimizeButton.Parent = Header
+
+local CloseButton = Instance.new("TextButton")
+CloseButton.Text = "X"
+CloseButton.Size = UDim2.new(0, 40, 1, 0)
+CloseButton.Position = UDim2.new(1, -40, 0, 0)
+CloseButton.BackgroundColor3 = Color3.fromRGB(100, 40, 40)
+CloseButton.TextColor3 = Color3.new(1, 1, 1)
+CloseButton.Font = Enum.Font.GothamBold
+CloseButton.TextSize = 20
+CloseButton.Parent = Header
+
+local HubButton = Instance.new("TextButton")
+HubButton.Text = "Hub"
+HubButton.Size = UDim2.new(0, 100, 0, 40)
+HubButton.Position = UDim2.new(0.5, -50, 0.5, -20)
+HubButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+HubButton.TextColor3 = Color3.new(1, 1, 1)
+HubButton.Font = Enum.Font.GothamBold
+HubButton.TextSize = 18
+HubButton.Visible = false
+HubButton.Parent = ScreenGui
+
+local TabFolder = Instance.new("Frame")
+TabFolder.Size = UDim2.new(1, 0, 1, -40)
+TabFolder.Position = UDim2.new(0, 0, 0, 40)
+TabFolder.BackgroundTransparency = 1
+TabFolder.Parent = MainFrame
+
+local Tabs = {"Teleport", "Exploits", "Credits"}
+local TabFrames = {}
+
+for i, tabName in ipairs(Tabs) do
+    local tabBtn = Instance.new("TextButton")
+    tabBtn.Text = tabName
+    tabBtn.Size = UDim2.new(0, 120, 0, 30)
+    tabBtn.Position = UDim2.new(0, (i - 1) * 130 + 10, 0, 10)
+    tabBtn.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    tabBtn.TextColor3 = Color3.new(1, 1, 1)
+    tabBtn.Font = Enum.Font.GothamBold
+    tabBtn.TextSize = 14
+    tabBtn.Parent = TabFolder
+
+    local contentFrame = Instance.new("Frame")
+    contentFrame.Size = UDim2.new(1, -20, 1, -50)
+    contentFrame.Position = UDim2.new(0, 10, 0, 50)
+    contentFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    contentFrame.Visible = i == 1
+    contentFrame.Parent = TabFolder
+
+    TabFrames[tabName] = contentFrame
+
+    tabBtn.MouseButton1Click:Connect(function()
+        for _, frame in pairs(TabFrames) do
+            frame.Visible = false
+        end
+        contentFrame.Visible = true
+    end)
+end
+
+local teleportButtons = {
+    {name = "TP TO STERLING", url = "sterling_url"},
+    {name = "TP TO CASTLE", url = "castle_url"},
+    {name = "TP TO END", url = "end_url"},
+    {name = "TP TO TRAIN", url = "train_url"},
+    {name = "TP TO TESLA LAB", url = "tesla_url"},
+}
+
+for i, info in ipairs(teleportButtons) do
+    local btn = Instance.new("TextButton")
+    btn.Text = info.name
+    btn.Size = UDim2.new(1, -20, 0, 30)
+    btn.Position = UDim2.new(0, 10, 0, (i - 1) * 35)
+    btn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    btn.TextColor3 = Color3.new(1, 1, 1)
+    btn.Font = Enum.Font.Gotham
+    btn.TextSize = 16
+    btn.Parent = TabFrames["Teleport"]
+
+    btn.MouseButton1Click:Connect(function()
+        -- Placeholder for teleport script execution
+        print("Would load:", info.url)
+    end)
+end
+
+local horseBtn = Instance.new("TextButton")
+horseBtn.Text = "GET HORSE CLASS"
+horseBtn.Size = UDim2.new(1, -20, 0, 30)
+horseBtn.Position = UDim2.new(0, 10, 0, 10)
+horseBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+horseBtn.TextColor3 = Color3.new(1, 1, 1)
+horseBtn.Font = Enum.Font.GothamBold
+horseBtn.TextSize = 16
+horseBtn.Parent = TabFrames["Exploits"]
+
+horseBtn.MouseButton1Click:Connect(function()
+    local args = {[1] = "Horse"}
+    game:GetService("ReplicatedStorage").Shared.RemotePromise.Remotes.C_BuyClass:FireServer(unpack(args))
+end)
+
+local brightnessSlider = Instance.new("TextButton")
+brightnessSlider.Text = "Set Fullbright"
+brightnessSlider.Size = UDim2.new(1, -20, 0, 30)
+brightnessSlider.Position = UDim2.new(0, 10, 0, 50)
+brightnessSlider.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+brightnessSlider.TextColor3 = Color3.new(1, 1, 1)
+brightnessSlider.Font = Enum.Font.GothamBold
+brightnessSlider.TextSize = 16
+brightnessSlider.Parent = TabFrames["Exploits"]
+
+brightnessSlider.MouseButton1Click:Connect(function()
+    Lighting.Brightness = 2
+    Lighting.ClockTime = 14
+    Lighting.FogEnd = 100000
+end)
+
+local creditsLabel = Instance.new("TextLabel")
+creditsLabel.Text = "GUI Designer: DeathlordYT\nScripter: Ringta\nDiscord: discord.gg/ringta"
+creditsLabel.Size = UDim2.new(1, -20, 1, -20)
+creditsLabel.Position = UDim2.new(0, 10, 0, 10)
+creditsLabel.BackgroundTransparency = 1
+creditsLabel.TextColor3 = Color3.new(1, 1, 1)
+creditsLabel.Font = Enum.Font.Gotham
+creditsLabel.TextSize = 14
+creditsLabel.TextWrapped = true
+creditsLabel.TextYAlignment = Enum.TextYAlignment.Top
+creditsLabel.Parent = TabFrames["Credits"]
+
+MinimizeButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = false
+    HubButton.Visible = true
+end)
+
+CloseButton.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
+
+HubButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = true
+    HubButton.Visible = false
+end)
